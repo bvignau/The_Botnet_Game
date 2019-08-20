@@ -12,7 +12,7 @@ def AddBotToEnv(env,V):
             env.AddNewBot(Psybot,param[1])
 
 class SimulThread(threading.Thread):
-    def __init__(self, ThreadID,Delay,Simul,V,T,Time,Step):
+    def __init__(self, ThreadID,Delay,Simul,V,T,Time,Step,ensemble):
         threading.Thread.__init__(self)
         self.ThreadID = ThreadID
         self.Delay = Delay
@@ -21,11 +21,15 @@ class SimulThread(threading.Thread):
         self.T = T
         self.Time = Time
         self.Step = Step
+        self.Ensemble=ensemble
     
     def run(self):
         for i in range(self.Simul):
             env=Environnement(self.V,self.T,self.Time,self.Step)
-            env.GenVictimes()
+            if self.Ensemble == 0:
+                env.GenVictimesRandom()
+            else :
+                env.GenVictimesEnsemble()
             AddBotToEnv(env,self.V)
             env.Game()
             env.Recup_CSV('a',self.ThreadID)

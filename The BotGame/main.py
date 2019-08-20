@@ -26,7 +26,10 @@ def main():
     SimulConf=ConfToInt(config['SIMULATION'])
     V=RecupBotnetsParam(config['POPULATION'],config['BOTNET'])
     env=Environnement(V,SimulConf['total'],SimulConf['time'],SimulConf['steps'])
-    env.GenVictimes()
+    if SimulConf['ensemble'] == 0:
+        env.GenVictimesRandom()
+    else :
+        env.GenVictimesEnsemble()
     AddBotToEnv(env,V)
     env.Game()
     files=env.Recup_CSV('w','a')
@@ -36,7 +39,7 @@ def main():
     threads=[]
     # creation des threads
     for i in range(SimulConf['threads']):
-        threads.append(SimulThread(i,SimulConf['delay'],SimulConf['number'],V,SimulConf['total'],SimulConf['time'],SimulConf['steps']))
+        threads.append(SimulThread(i,SimulConf['delay'],SimulConf['number'],V,SimulConf['total'],SimulConf['time'],SimulConf['steps'],SimulConf['ensemble']))
     # run 
     for t in threads:
         t.start()

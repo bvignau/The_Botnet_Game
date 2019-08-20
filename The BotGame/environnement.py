@@ -52,7 +52,7 @@ class Environnement():
             self.Bots[b.nom]=[]
             self.Bots[b.nom].append(b)
 
-    def GenVictimes(self):
+    def GenVictimesEnsemble(self):
         secretsGenerator = secrets.SystemRandom()
         for i in range(self.T):
             v = secretsGenerator.randint(0,self.T)
@@ -60,6 +60,21 @@ class Environnement():
             for bot,param in self.V.items():
                 #print("bot = "+str(bot))
                 #print("param = "+str(param))
+                if v <= param[0]:
+                    #print("Ajout Victime")
+                    victim.AddBot(GenReplicaVicitme(bot,param[1]))
+            #print('vuln : '+str(victim.vulnerables))
+            self.Victimes.append(victim)
+        #print("génération de victimes terminée")
+
+    def GenVictimesRandom(self):
+        secretsGenerator = secrets.SystemRandom()
+        for i in range(self.T):
+            victim=Victime(i,[])
+            for bot,param in self.V.items():
+                #print("bot = "+str(bot))
+                #print("param = "+str(param))
+                v = secretsGenerator.randint(0,self.T)
                 if v <= param[0]:
                     #print("Ajout Victime")
                     victim.AddBot(GenReplicaVicitme(bot,param[1]))
@@ -94,7 +109,8 @@ class Environnement():
                             for r in removed:
                                 #print("avant "+str(len(self.Bots[r])))
                                 #print("r = "+str(r))
-                                del self.Bots[r][0]
+                                if len(self.Bots[r]) > 1:
+                                    del self.Bots[r][0]
                                 #print("après "+str(len(self.Bots[r])))
                             pass
                         nBot=B.Clone()
