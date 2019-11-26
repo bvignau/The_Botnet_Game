@@ -28,7 +28,7 @@ def GenReplicaVicitme(bot,replicat):
 
 
 class Environnement():
-    def __init__(self,V,T,TimeMax,step):
+    def __init__(self,V,T,TimeMax,step,freqD,freqB):
         self.V=V.copy()
         self.T = T
         self.TimeMax=TimeMax
@@ -36,17 +36,48 @@ class Environnement():
         self.Victimes = list()
         self.Bots = dict()
         self.res=dict()
+        self.freqD = freqD
+        self.freqB = freqB
+
+    def DeathFunction(self):
+        # A modifier en fonction de la simulation
+        v = secretsGenerator.randint(0,100)
+        if v < 75 :
+            return 0
+        if v >= 75 and v < 80 :
+            return 1
+        if v >= 80 and v < 85 :
+            return 2
+        if v >= 85 and v < 90 :
+            return 3
+        if v >= 90 :
+            return 4
+
+    
+    def BirthRate(self):
+        # a modifier en fonciton de la simulation
+        v = secretsGenerator.randint(0,100)
+        if v < 75 :
+            return 0
+        if v >= 75 and v < 80 :
+            return 1
+        if v >= 80 and v < 85 :
+            return 2
+        if v >= 85 and v < 90 :
+            return 3
+        if v >= 90 :
+            return 4
     
 
-    def detectPsybot(self):        # USE TO DEBUG
-        count=0
-        for v in self.Victimes:
-            if 'psybot 0' in v.vulnerables:
-                #print("Victime vulnérable à psybot")
-                count+=1
-                # if ip == v.numero:
-                #     print("ip vulnéable à psybot")
-        print("count = "+str(count))
+    # def detectPsybot(self):        # USE TO DEBUG
+    #     count=0
+    #     for v in self.Victimes:
+    #         if 'psybot 0' in v.vulnerables:
+    #             #print("Victime vulnérable à psybot")
+    #             count+=1
+    #             # if ip == v.numero:
+    #             #     print("ip vulnéable à psybot")
+    #     print("count = "+str(count))
 
     def AddNewBot(self, bot, num):
         for i in range(num):
@@ -72,6 +103,16 @@ class Environnement():
             #print('vuln : '+str(victim.vulnerables))
             self.Victimes.append(victim)
         #print("génération de victimes terminée")
+    
+    def Naissance(self,num):
+        secretsGenerator = secrets.SystemRandom()
+        for i in range(num):
+            print("TODO")
+
+    def Mort(self,num):
+        secretsGenerator = secrets.SystemRandom()
+        for i in range(num):
+            print("TODO")
 
     def GenVictimesRandom(self):
         # dans cette fonction => reroll random pour chaque bot
@@ -141,11 +182,14 @@ class Environnement():
                     # la victime n'est pas vulnérable on passe le bot en état de génération IP
     
     def Game(self):
-        self.detectPsybot()
+        #self.detectPsybot()
         for i in range(self.TimeMax):
             self.Turn(i)
             if i%self.Step == 0 :
                 self.CountBots()
+            if i%self.freqB == 0 :
+                # naissance 
+
     
     def CountBots(self):
         for name, Botnet in self.Bots.items():
