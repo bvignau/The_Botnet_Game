@@ -47,8 +47,10 @@ def main():
     for t in threads:
         t.join()
     # concatenation des fichiers des threads en un fichier de stats par botnet
+    botnetNames=[]
     for f in files:
         subname=f.split('-')[0]
+        botnetNames.append(subname)
         with open(f,'ab') as afd:
             for i in range(SimulConf['threads']):
                 filename=subname+'-'+str(i)+'.csv'
@@ -58,6 +60,7 @@ def main():
                         afd.write(line)
                 os.remove(filename)
         Stats_Botnet(f,SimulConf['steps'],SimulConf['time'])
+    Affiche_fusion(botnetNames,SimulConf['steps'],SimulConf['time'])
     #
 
 

@@ -5,7 +5,7 @@ import copy
 class Bot():
     # Classe mère de bot, a étendre pour modéliser le comportement de chaque botnet
     # Pour faire un botnet, il faut étendre la méthode Gen_IP()
-    def __init__(self, nom,Gen_IP,Test_IP,Exploit_IP,num):
+    def __init__(self, nom,Gen_IP,Test_IP,Exploit_IP,num,delay):
         self.nom = nom                      # nom du botnet
         self.num = num                      # numéro du botnet
         self.Tps_Gen_IP = Gen_IP            # Temps de génération d'adresse IP
@@ -16,6 +16,7 @@ class Bot():
         self.Tps_restant = 0            # variable interne pour chronométrer le temps à rester dans un état
         self.State = "init"             # état actuel
         self.IP=-1                      # IP en cours d'exploitation/ test
+        self.Delay = delay              # delay avant de commencer = pour le retard
     
     def Strat_IP(self,max_ip):          # Méthode de génération de l'IP reflétant la stratégie du botnet. A refaire pour chaque bot
         secretsGenerator = secrets.SystemRandom()
@@ -109,19 +110,21 @@ class MiraiBot(Bot):
         self.Supression = ["psybot"]
         self.Tps_restant = 0
         self.IP=-1
+        self.Delay=250
 
 class PsyBot(Bot):
     def __init__(self,instance):
         self.nom = "psybot "+str(instance)
         self.num = instance
         self.Tps_Gen_IP = 1         # A ajuster en fonction des données trouvées
-        self.Tps_Test_IP = 8        #   Idem    
+        self.Tps_Test_IP = 2        #   Idem    
         self.Tps_Exploit_IP = 4    #   Idem
         self.State = "init"
         self.Protection = []
         self.Supression = []
         self.Tps_restant = 0
         self.IP=-1
+        self.Delay=0
     
     def Strat_IP(self,max_ip):          # Méthode de génération de l'IP reflétant la stratégie du botnet. A refaire pour chaque bot
         if self.IP != max_ip :

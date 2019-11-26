@@ -3,18 +3,16 @@ from Bot import *
 import matplotlib.pyplot as plt
 import csv
 import numpy as np
+from random import shuffle
 
 COLOR=['b','g','r','c','m','y','k','w']
 STYLE=['.','v','<','1','s','p','P','*','D','--']
 
-# TODO => Revoir le système de gestion de la concurence !!
-#           => Ordre Randomisé de passage
-#           => Supression des infections (Wifatch etc) => presque fini
 # TODO => Tools de visualisation pour X simulations
 # TODO => Tool visualisation vicitimes
 #       => combien de bots les ont infectés, nombre de bots par victimes, nombre de supression ?
 # TODO => Interface de gestion des victimes !!
-# TODO => Delay de patch !!
+# TODO => Delay de patch !! => done
 # TODO => Death & Birth
 # TODO => Fonction et non constante
 # TODO => implementer bubble map ?
@@ -40,15 +38,15 @@ class Environnement():
         self.res=dict()
     
 
-    # def detectPsybot(self,ip):        # USE TO DEBUG
-    #     count=0
-    #     for v in self.Victimes:
-    #         if 'psybot 0' in v.vulnerables:
-    #             #print("Victime vulnérable à psybot")
-    #             count+=1
-    #             if ip == v.numero:
-    #                 print("ip vulnéable à psybot")
-    #     print("count = "+str(count))
+    def detectPsybot(self):        # USE TO DEBUG
+        count=0
+        for v in self.Victimes:
+            if 'psybot 0' in v.vulnerables:
+                #print("Victime vulnérable à psybot")
+                count+=1
+                # if ip == v.numero:
+                #     print("ip vulnéable à psybot")
+        print("count = "+str(count))
 
     def AddNewBot(self, bot, num):
         for i in range(num):
@@ -99,40 +97,53 @@ class Environnement():
                 for i in range(self.V[b][1]):
                     nom.append(b+" "+str(i))
         return nom
-    
-    def Turn(self):
-        # TODO RANDOM ORDRE
+
+    def randomOrder(self):
+        orderList=[]
         for Botnet in self.Bots :
             for B in self.Bots[Botnet] :
+                orderList.append(B)
+        shuffle(orderList)
+        return orderList
+    
+    def Turn(self,time):
+        secretsGenerator = secrets.SystemRandom()
+        orderList = self.randomOrder()
+        for B in orderList :
+            rep={'IP':-1}
+            if time >= B.Delay :
                 rep = B.Next(self.T)
-                #print("Rep = "+str(rep))
-                if rep['IP'] != -1 :
-                    #print('Dans vul,rm')
-                    supp=self.BotReplicats(rep['supression'])
-                    vul,removed=self.Victimes[rep['IP']].vulnerable(rep['nom'],rep['protection'],supp)
-                    #print("vul = "+str(vul))
-                    #print("removed bis = "+str(removed))
-                    if  vul == True :
-                        # la victime est vulnérable => on passe le bot en état d'exploit
-                        B.ExploitTime()
-                        if   len(removed) > 0:    # si la liste n'est pas vide, on doit supprimer un bot
-                            for r in removed:
-                                #print("avant "+str(len(self.Bots[r])))
-                                #print("r = "+str(r))
-                                if len(self.Bots[r]) > 1:
-                                    del self.Bots[r][0] # on del toujours le 1er or on ne sait pas si c'est le bon bot !! => rajouter numéro de bot
-                                #print("après "+str(len(self.Bots[r])))
-                            pass
-                        nBot=B.Clone()
-                        nBot.ExploitTime()
-                        self.Bots[B.nom].append(nBot) # on ajoute un bot en état d'exploit
-                    else :
-                        B.Gen_IP(self.T)
-                        # la victime n'est pas vulnérable on passe le bot en état de génération IP
+            #print("Rep = "+str(rep))
+            if rep['IP'] != -1 :
+                #print('Dans vul,rm')
+                supp=self.BotReplicats(rep['supression'])
+                vul,removed=self.Victimes[rep['IP']].vulnerable(rep['nom'],rep['protection'],supp)
+                #print("vul = "+str(vul))
+                #print("removed bis = "+str(removed))
+                if  vul == True :
+                    # la victime est vulnérable => on passe le bot en état d'exploit
+                    B.ExploitTime()
+                    if   len(removed) > 0:    # si la liste n'est pas vide, on doit supprimer un bot
+                        for r in removed:
+                            #print("avant "+str(len(self.Bots[r])))
+                            #print("r = "+str(r))
+                            if len(self.Bots[r]) > 1:
+                                # On del un bot random du réseau
+                                v = secretsGenerator.randint(0,len(self.Bots[r])-1)
+                                del self.Bots[r][v]
+                            #print("après "+str(len(self.Bots[r])))
+                        pass
+                    nBot=B.Clone()
+                    nBot.ExploitTime()
+                    self.Bots[B.nom].append(nBot) # on ajoute un bot en état d'exploit
+                else :
+                    B.Gen_IP(self.T)
+                    # la victime n'est pas vulnérable on passe le bot en état de génération IP
     
     def Game(self):
+        self.detectPsybot()
         for i in range(self.TimeMax):
-            self.Turn()
+            self.Turn(i)
             if i%self.Step == 0 :
                 self.CountBots()
     
