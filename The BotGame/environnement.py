@@ -7,13 +7,18 @@ import numpy as np
 COLOR=['b','g','r','c','m','y','k','w']
 STYLE=['.','v','<','1','s','p','P','*','D','--']
 
-#TODO => Revoir le système de gestion de la concurence !!
+# TODO => Revoir le système de gestion de la concurence !!
 #           => Ordre Randomisé de passage
-#           => Supression des infections (Wifatch etc)
-#TODO => Tools de visualisation pour X simulations
-#TODO => Tool visualisation vicitimes
+#           => Supression des infections (Wifatch etc) => presque fini
+# TODO => Tools de visualisation pour X simulations
+# TODO => Tool visualisation vicitimes
 #       => combien de bots les ont infectés, nombre de bots par victimes, nombre de supression ?
-#TODO => Interface de gestion des victimes !!
+# TODO => Interface de gestion des victimes !!
+# TODO => Delay de patch !!
+# TODO => Death & Birth
+# TODO => Fonction et non constante
+# TODO => implementer bubble map ?
+# TODO => implementer bulle d'ip vulnerable ??
 
 def GenReplicaVicitme(bot,replicat):
     vuln=[]
@@ -53,6 +58,9 @@ class Environnement():
             self.Bots[b.nom].append(b)
 
     def GenVictimesEnsemble(self):
+        # Dans cette fonction => un random par victime
+        # quand vulnérable à 1, le sera aussi a tout ceux qui infecte plus de victimes
+        # A revoir
         secretsGenerator = secrets.SystemRandom()
         for i in range(self.T):
             v = secretsGenerator.randint(0,self.T)
@@ -68,6 +76,8 @@ class Environnement():
         #print("génération de victimes terminée")
 
     def GenVictimesRandom(self):
+        # dans cette fonction => reroll random pour chaque bot
+        # quand vulnerable à un bot ne l'est pas forcément aux autres
         secretsGenerator = secrets.SystemRandom()
         for i in range(self.T):
             victim=Victime(i,[])
@@ -110,7 +120,7 @@ class Environnement():
                                 #print("avant "+str(len(self.Bots[r])))
                                 #print("r = "+str(r))
                                 if len(self.Bots[r]) > 1:
-                                    del self.Bots[r][0]
+                                    del self.Bots[r][0] # on del toujours le 1er or on ne sait pas si c'est le bon bot !! => rajouter numéro de bot
                                 #print("après "+str(len(self.Bots[r])))
                             pass
                         nBot=B.Clone()
