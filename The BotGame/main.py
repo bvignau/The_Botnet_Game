@@ -25,7 +25,7 @@ def main():
     config.read('Simultation.conf')
     SimulConf=ConfToInt(config['SIMULATION'])
     V=RecupBotnetsParam(config['POPULATION'],config['BOTNET'])
-    env=Environnement(V,SimulConf['total'],SimulConf['time'],SimulConf['steps'])
+    env=Environnement(V,SimulConf['total'],SimulConf['time'],SimulConf['steps'],30,20)
     if SimulConf['ensemble'] == 0:
         env.GenVictimesRandom()
     else :

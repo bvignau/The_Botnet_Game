@@ -25,7 +25,7 @@ class SimulThread(threading.Thread):
     
     def run(self):
         for i in range(self.Simul):
-            env=Environnement(self.V,self.T,self.Time,self.Step)
+            env=Environnement(self.V,self.T,self.Time,self.Step,30,15)
             if self.Ensemble == 0:
                 env.GenVictimesRandom()
             else :
