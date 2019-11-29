@@ -59,7 +59,7 @@ def Stats_Botnet(file,step,maxTime):
     minT=[]
     medianT=[]
     x=[]
-    for i in range(0,(maxTime-step),step):
+    for i in range(0,(maxTime+step),step):
         x.append(i)
         meanT.append(df[str(i)].mean())
         maxT.append(df[str(i)].max())
@@ -69,15 +69,15 @@ def Stats_Botnet(file,step,maxTime):
     df = pd.DataFrame(median, columns=['time','median'])
     filename=nom.split('-')[0]+"_median.csv"
     export_csv = df.to_csv(filename,index=None,header=True)
-    plt.plot(x,meanT,label="moyenne")
-    plt.plot(x,maxT,label="max")
-    plt.plot(x,minT,label="min")
-    plt.plot(x,medianT,label="medianne")
+    plt.plot(x,meanT,marker="+",label="moyenne")
+    plt.plot(x,maxT,marker=".",label="max")
+    plt.plot(x,minT,marker="v",label="min")
+    plt.plot(x,medianT,marker="*",label="medianne")
     plt.legend(title=nom)
     plt.grid(True)    
     plt.show()
 
 
 #Affiche_fusion()
-Stats_Botnet("mirai_a.csv",100,5000)
-Stats_Botnet("psybot_a.csv",100,5000)
+Stats_Botnet("mirai_a.csv",50,5000)
+Stats_Botnet("psybot_a.csv",50,5000)
