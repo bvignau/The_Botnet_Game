@@ -220,7 +220,8 @@ class Environnement():
         for Botnet, stats in self.res.items():
             gstats=[0]
             gstats.extend(stats)
-            nom=Botnet+"-"+str(thread)+".csv"
+            parts=Botnet.split(" ")
+            nom=parts[0]+parts[1]+"-"+str(thread)+".csv"
             files.append(nom)
             with open(nom, option, newline='\n') as csvfile:
                 reswritter = csv.writer(csvfile,delimiter=';',quotechar='"',quoting=csv.QUOTE_MINIMAL)
