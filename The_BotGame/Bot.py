@@ -107,7 +107,7 @@ class MiraiBot(Bot):
         self.Tps_Exploit_IP = 4    #   Idem
         self.State = "init"
         self.Protection = ["*"]
-        self.Supression = []
+        self.Supression = ["x"]
         self.Tps_restant = 0
         self.IP=-1
         self.Delay=0
@@ -117,11 +117,11 @@ class PsyBot(Bot):
         self.nom = "psybot "+str(instance)
         self.num = instance
         self.Tps_Gen_IP = 1         # A ajuster en fonction des données trouvées
-        self.Tps_Test_IP = 5        #   Idem    
-        self.Tps_Exploit_IP = 4    #   Idem
+        self.Tps_Test_IP = 1        #   Idem    
+        self.Tps_Exploit_IP = 1    #   Idem
         self.State = "init"
         self.Protection = ["*"]
-        self.Supression = []
+        self.Supression = ["x"]
         self.Tps_restant = 0
         self.IP=-1
         self.Delay=0

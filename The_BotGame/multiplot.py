@@ -79,5 +79,5 @@ def Stats_Botnet(file,step,maxTime):
 
 
 #Affiche_fusion()
-Stats_Botnet("mirai_a.csv",50,5000)
-Stats_Botnet("psybot_a.csv",50,5000)
+Stats_Botnet("mirai.csv",10,1000)
+Stats_Botnet("psybot.csv",10,1000)
