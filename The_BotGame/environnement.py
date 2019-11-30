@@ -158,7 +158,7 @@ class Environnement():
             if time >= B.Delay :
                 rep = B.Next(self.T)
             #print("Rep = "+str(rep))
-            if rep['IP'] != -1 :
+            if rep['IP'] != -1 and rep.has_key("nom") and rep.has_key("protection"):
                 #print('Dans vul,rm')
                 supp=self.BotReplicats(rep['supression'])
                 vul,removed=self.Victimes[rep['IP']].vulnerable(rep['nom'],rep['protection'],supp)
