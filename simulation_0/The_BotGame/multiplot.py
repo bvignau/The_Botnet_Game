@@ -71,6 +71,6 @@ def Affiche_fusion(botnet,step,maxTime):
     plt.show()
 
 #Affiche_fusion()
-Stats_Botnet("mirai.csv",10,1000)
-Stats_Botnet("psybot.csv",10,1000)
-Affiche_fusion(["mirai","psybot"],10,1000)
+Stats_Botnet("mirai.csv",50,5000)
+Stats_Botnet("psybot.csv",50,5000)
+Affiche_fusion(["mirai","psybot"],50,5000)
