@@ -19,13 +19,13 @@ def Stats_Botnet(file,step,maxTime):
     df = pd.DataFrame(median, columns=['time','median'])
     filename=nom.split('-')[0]+"_median.csv"
     export_csv = df.to_csv(filename,index=None,header=True)
-    plt.plot(x,meanT,marker="+",label="moyenne")
-    plt.plot(x,maxT,marker=".",label="max")
-    plt.plot(x,minT,marker="v",label="min")
-    plt.plot(x,medianT,marker="*",label="medianne")
-    plt.legend(title=nom)
-    plt.grid(True)    
-    plt.show()
+    #plt.plot(x,meanT,marker="+",label="moyenne")
+    #plt.plot(x,maxT,marker=".",label="max")
+    #plt.plot(x,minT,marker="v",label="min")
+    #plt.plot(x,medianT,marker="*",label="medianne")
+    #plt.legend(title=nom)
+    #plt.grid(True)    
+    #plt.show()
 
 def Affiche_fusion(botnet,step,maxTime):
     # botnet = liste des noms de botnet
@@ -43,9 +43,9 @@ def Affiche_fusion(botnet,step,maxTime):
                 i+=1
     for b in B.keys() :
         plt.plot(x,B[b],label=b)
-    plt.legend(title="all botnet")
-    plt.grid(True)    
-    plt.show()
+    #plt.legend(title="all botnet")
+    #plt.grid(True)    
+    #plt.show()
     
 
 

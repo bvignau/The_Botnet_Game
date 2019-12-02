@@ -18,7 +18,9 @@ class Victime():
                     self.vulnerables=[]
                 else :
                     for v in vul :
-                        self.vulnerable.remove(v)
+                        #print("v = "+str(v))
+                        if v in self.vulnerables :
+                            self.vulnerables.remove(v)
             removed=[]
             for c in clean :    # si le bot clean d'autres infections. 
                 if c in self.infection :

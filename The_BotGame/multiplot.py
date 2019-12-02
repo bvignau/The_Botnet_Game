@@ -9,38 +9,8 @@ mu = 5
 sigma = 2
 VectSize = 100000
 vect = np.random.randn(VectSize) * sigma + mu
+STYLE=['+','.','v','*','<','1','s','p','P','D','--']
 
-def Affiche_fusion():
-    x= []
-    b1=[]
-    b2=[]
-    with open('mirai 0-a_median.csv') as csv1:
-        with open('psybot 0-a_median.csv') as csv2:
-            plotb1= csv.reader(csv1,delimiter=',')
-            plotb2= csv.reader(csv2,delimiter=',')
-            i=0
-            for row1 in plotb1:
-                if i != 0 :
-                    x.append(float(row1[0]))
-                    b1.append(float(row1[1]))
-                i+=1
-            i=0
-            for row2 in plotb2:
-                if i !=0:
-                    b2.append(float(row2[1]))
-                i+=1
-    plt.plot(x,b1,label='mirai')
-    plt.plot(x,b2,label='psybot')
-    plt.legend(title="test")
-    plt.grid(True)    
-    plt.show()
-
-
-def DeathFunction():
-    # A modifier en fonction de la simulation
-    secretsGenerator = secrets.SystemRandom()
-    v = secretsGenerator.randint(0,VectSize-1)
-    return int(vect[v])
 
 def affRes(nb, nom):
     fileAll=nom+"_a.csv"
@@ -78,6 +48,29 @@ def Stats_Botnet(file,step,maxTime):
     plt.show()
 
 
+def Affiche_fusion(botnet,step,maxTime):
+    # botnet = liste des noms de botnet
+    x= range(0,(maxTime+step),step)
+    B={}
+    for b in botnet :
+        file=b+"_median.csv"
+        with open(file) as csvf:
+            i=0
+            pltbot= csv.reader(csvf,delimiter=',')
+            B[b]=[]
+            for row in pltbot:
+                if i !=0:
+                    B[b].append(float(row[1]))
+                i+=1
+    for b in B.keys() :
+        i=0
+        plt.plot(x,B[b],marker=STYLE[i],label=b)
+        i+=1
+    plt.legend(title="all botnet")
+    plt.grid(True)    
+    plt.show()
+
 #Affiche_fusion()
-Stats_Botnet("mirai.csv",10,5000)
-Stats_Botnet("psybot.csv",10,5000)
+Stats_Botnet("mirai.csv",10,1000)
+Stats_Botnet("psybot.csv",10,1000)
+Affiche_fusion(["mirai","psybot"],10,1000)
