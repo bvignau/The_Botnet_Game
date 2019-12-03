@@ -116,9 +116,9 @@ class PsyBot(Bot):
     def __init__(self,instance):
         self.nom = "psybot "+str(instance)
         self.num = instance
-        self.Tps_Gen_IP = 3         # A ajuster en fonction des données trouvées
-        self.Tps_Test_IP = 5        #   Idem    
-        self.Tps_Exploit_IP = 4    #   Idem
+        self.Tps_Gen_IP = 1        # A ajuster en fonction des données trouvées
+        self.Tps_Test_IP = 1        #   Idem    
+        self.Tps_Exploit_IP = 1    #   Idem
         self.State = "init"
         self.Protection = []
         self.Supression = []
@@ -126,8 +126,8 @@ class PsyBot(Bot):
         self.IP=-1
         self.Delay=0
     
-    # def Strat_IP(self,max_ip):          # Méthode de génération de l'IP reflétant la stratégie du botnet. A refaire pour chaque bot
-    #     if self.IP != max_ip :
-    #         return self.IP+1
-    #     else :
-    #         return 0
+    def Strat_IP(self,max_ip):          # Méthode de génération de l'IP reflétant la stratégie du botnet. A refaire pour chaque bot
+        if self.IP != max_ip :
+            return self.IP+1
+        else :
+            return 0
