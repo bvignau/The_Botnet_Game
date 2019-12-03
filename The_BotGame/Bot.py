@@ -110,7 +110,7 @@ class MiraiBot(Bot):
         self.Supression = ["psybot"]
         self.Tps_restant = 0
         self.IP=-1
-        self.Delay=0
+        self.Delay=200
 
 class PsyBot(Bot):
     def __init__(self,instance):
