@@ -71,10 +71,10 @@ def Affiche_fusion(botnet,step,maxTime):
     plt.show()
 
 #Affiche_fusion()
-Stats_Botnet("mirai1.csv",10,1500)
-Stats_Botnet("mirai1.csv",10,1500)
-Stats_Botnet("mirai2.csv",10,1500)
-Stats_Botnet("mirai3.csv",10,1500)
-Stats_Botnet("mirai4.csv",10,1500)
+Stats_Botnet("mirai00.csv",10,1500)
+Stats_Botnet("mirai10.csv",10,1500)
+# Stats_Botnet("mirai2.csv",10,1500)
+# Stats_Botnet("mirai3.csv",10,1500)
+# Stats_Botnet("mirai4.csv",10,1500)
 
-Affiche_fusion(["mirai0","mirai1","mirai2","mirai3","mirai4"],10,1500)
+Affiche_fusion(["mirai00","mirai10"],10,1500)

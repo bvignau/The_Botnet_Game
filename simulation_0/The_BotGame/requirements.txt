@@ -1,3 +1,0 @@
-pyfastcopy
-pandas
-matplotlib
