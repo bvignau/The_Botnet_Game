@@ -19,11 +19,14 @@ The population section defined the proportion of potential victims for each botn
 ### Start simulations
 First use the script multiple.sh :
 
-``./multiple.sh 5`` this commande will create five differents process. With our parameters Treads equal to 5 and number equal to 4 we will have a total of 5x5x4 = 100 simulations. The total number of process, threads and number are to adpat with your machine and desired number of simulation.
+``./multiple.sh 5`` this commande will create five differents process. With our parameters Treads equal to 5 and number equal to 4 we will have a total of 5x5x4 = 100 simulations. The total number of process, threads and number are to adpat with your machine and desired number of simulation. Here, we let one example conf file, corresponding to our exeperience 1B
 
 ### Collect results
 
 To collect the results, 1st use the collect.sh script, it will create a csv file with the result of all the simulations. Then use the python scrupt multiplot.py to create figures.
+To use the collect script : ``collect.sh mirai00 5`` you need to run this command for each botnet population. In our example you need to run it two times :  
+``collect.sh mirai00 5`` and ``collect.sh mirai10 5``.
+It will create one CSV file with all the result of all simulation for each population. The script collect and produce one CSV for each call. 
 
 ## Results of our experiences
 
