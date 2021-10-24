@@ -1,4 +1,4 @@
-# The_Botnet_Game
+# The_Botnet_Game 1.1
 
 This tool is develop in order to help researchers to determine the most efficients features of botnets. It's a simulating tool and actually only the random and sequential scan are implemented. More behaviors will be implemented in the future.
 
