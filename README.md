@@ -24,8 +24,8 @@ First use the script multiple.sh :
 ### Collect results
 
 To collect the results, 1st use the collect.sh script, it will create a csv file with the result of all the simulations. Then use the python scrupt multiplot.py to create figures.
-To use the collect script : ``collect.sh mirai00 5`` you need to run this command for each botnet population. In our example you need to run it two times :  
-``collect.sh mirai00 5`` and ``collect.sh mirai10 5``.
+To use the collect script : ``collect.sh 5 mirai00`` you need to run this command for each botnet population. In our example you need to run it two times :  
+``collect.sh 5 mirai00`` and ``collect.sh 5 mirai10 ``.
 It will create one CSV file with all the result of all simulation for each population. The script collect and produce one CSV for each call. 
 
 ## Results of our experiences
